@@ -1,0 +1,13 @@
+.item-wrapper {
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+  margin-bottom: 3px;
+  border: 1px solid gray;
+}
+
+.item-block {
+  display: flex;
+  justify-content: space-around;
+}
