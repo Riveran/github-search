@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import Filtres from './components/Filtres/Filtres'
 import InputContainer from './containers/InputContainer'
 import SearchListContainer from './containers/SearchListContainer'
-import Category from './components/Category/Category'
+import CategoryContainer from './containers/CategoryContainer'
 import './App.css'
 
 class App extends Component {
@@ -11,9 +10,8 @@ class App extends Component {
       <div className='main-wrapper'>
         <InputContainer />
         <div className='wrapper'>
-          <Category />
+          <CategoryContainer />
           <SearchListContainer />
-          <Filtres />
         </div>
       </div>
     )

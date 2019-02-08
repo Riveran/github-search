@@ -1,5 +1,5 @@
-import SearchList from '../components/SearchList/SearchList'
-import { connectApi } from '../actions/index'
+import Category from './../components/Category/Category'
+import { setCategory } from '../actions/index'
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => ({
@@ -7,10 +7,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  connectApi: (searchPath, number) => dispatch(connectApi(searchPath, number))
+  setCategory: category => dispatch(setCategory(category))
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SearchList)
+)(Category)

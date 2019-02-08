@@ -1,5 +1,33 @@
 .category-wrapper {
-  width: 15%;
+  width: 20%;
   border: 1px solid gray;
   margin: 5px;
+}
+
+.nav-category {
+  margin: 0;
+  padding: 0;
+}
+
+.nav_item {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+  background: none;
+  position: relative;
+  border: none;
+  border-top: 1px solid gray;
+  height: 20px;
+  width: 100%;
+}
+
+.nav_item:nth-child(2) {
+  border-bottom: 1px solid gray;
 }

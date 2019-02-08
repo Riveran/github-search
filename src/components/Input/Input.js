@@ -25,10 +25,17 @@ export class Input extends Component {
 
   render () {
     return (
-      <div className='input-wrapper'>
-        <input className='input-search' onChange={this.handleChange} />
-        <button onClick={this.handleClick}>Search</button>
-      </div>
+      <form className='input-wrapper'>
+        <input
+          className='input-search'
+          placeholder='search repository or users'
+          onChange={this.handleChange}
+        />
+
+        <button className='input-btn' onClick={this.handleClick}>
+          Search
+        </button>
+      </form>
     )
   }
 }

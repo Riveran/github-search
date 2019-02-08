@@ -1,6 +1,7 @@
 .search-list-wrapper {
-  width: 70%;
+  width: 80%;
   margin: 5px;
+  margin-left: 0px;
   border: 1px solid gray;
 }
 

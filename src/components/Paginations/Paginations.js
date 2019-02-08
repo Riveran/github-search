@@ -1,0 +1,69 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+
+import './paginations.css'
+
+const renderPaginationBtns = (onClick, page, lastPage) => {
+  const startBtns = [page, page + 1, page + 2]
+  const gapBtns = [page - 2, page - 1, page]
+  const middleBtn = ['...']
+  const lastBtns = [lastPage - 1]
+
+  let btnsArr = []
+
+  if (page < lastPage - 6) {
+    btnsArr = [...startBtns, ...middleBtn, ...lastBtns]
+  } else if (page < lastPage - 4) {
+    btnsArr = [...gapBtns, ...middleBtn, ...lastBtns]
+  } else if (page < lastPage - 3) {
+    btnsArr = [...gapBtns, ...lastBtns]
+  } else {
+    btnsArr = [...middleBtn, ...lastBtns]
+  }
+
+  return btnsArr.map(num => {
+    return num === '...' ? (
+      num
+    ) : (
+      <button
+        key={num}
+        onClick={onClick}
+        data-name={num}
+        className={num === page ? 'active' : ''}
+      >
+        {num}
+      </button>
+    )
+  })
+}
+
+const Paginations = ({ onClick, page, lastPage }) => (
+  <div className='paginationWrapper'>
+    {console.log('page', page)}
+    {page !== 0 && (
+      <button onClick={onClick} data-name='prev'>
+        {'<<'}
+      </button>
+    )}
+    {renderPaginationBtns(onClick, page, lastPage)}
+    {page !== lastPage - 1 && (
+      <button onClick={onClick} data-name='next'>
+        {'>>'}
+      </button>
+    )}
+  </div>
+)
+
+Paginations.propTypes = {
+  onClick: PropTypes.func,
+  page: PropTypes.number,
+  lastPage: PropTypes.number
+}
+
+Paginations.defaultProps = {
+  onClick: () => {},
+  page: 0,
+  lastPage: 0
+}
+
+export default Paginations
