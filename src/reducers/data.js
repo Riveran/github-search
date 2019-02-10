@@ -4,7 +4,13 @@ import {
   SET_CATEGORY,
   ERROR_FETCH,
   SET_PATH,
-  SET_PAGE
+  SET_PAGE,
+  GET_FULL_RESULT,
+  SET_LOADING,
+  SET_LOADING_SEARCH,
+  SET_LANGUAGE,
+  SET_STARS,
+  SET_FORKS
 } from './../constants/index'
 
 const initialState = {
@@ -13,7 +19,13 @@ const initialState = {
   renderCategory: 'repositories',
   errorMsg: '',
   page: 1,
-  searchPath: ''
+  searchPath: '',
+  statistic: '',
+  language: '',
+  stars: 0,
+  forks: 0,
+  loading: false,
+  preLoadingSearch: false
 }
 
 export default (state = initialState, action) => {
@@ -34,7 +46,25 @@ export default (state = initialState, action) => {
       return { ...state, searchPath: action.searchPath }
 
     case SET_PAGE:
-      return { ...state, page: action.number }
+      return { ...state, page: action.page }
+
+    case GET_FULL_RESULT:
+      return { ...state, statistic: action.payload }
+
+    case SET_LOADING:
+      return { ...state, loading: action.payload }
+
+    case SET_LOADING_SEARCH:
+      return { ...state, preLoadingSearch: action.payload }
+
+    case SET_LANGUAGE:
+      return { ...state, language: action.payload }
+
+    case SET_STARS:
+      return { ...state, stars: action.stars }
+
+    case SET_FORKS:
+      return { ...state, forks: action.forks }
 
     default:
       return state

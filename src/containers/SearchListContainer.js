@@ -7,7 +7,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  connectApi: (searchPath, number) => dispatch(connectApi(searchPath, number))
+  connectApi: (searchPath, page, language, stars, forks) =>
+    dispatch(connectApi(searchPath, page, language, stars, forks))
 })
 
 export default connect(

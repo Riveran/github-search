@@ -10,14 +10,20 @@ export class SearchList extends Component {
     usersData: PropTypes.array.isRequired,
     repData: PropTypes.array.isRequired,
     renderCategory: PropTypes.string.isRequired,
-    errorMsg: PropTypes.string.isRequired
+    errorMsg: PropTypes.string.isRequired,
+    stars: PropTypes.number.isRequired,
+    forks: PropTypes.number.isRequired,
+    language: PropTypes.string.isRequired
   }
 
   static defaultProps = {
     usersData: [],
     repData: [],
     renderCategory: 'repositories',
-    errorMsg: ''
+    errorMsg: '',
+    stars: 0,
+    forks: 0,
+    language: ''
   }
 
   body = () => {
@@ -102,13 +108,13 @@ export class SearchList extends Component {
     }
   }
 
-  updatePage = number => {
-    const { connectApi } = this.props
-    connectApi(this.props.data.searchPath, number)
+  updatePage = page => {
+    const { searchPath, language, stars, forks } = this.props.data
+    this.props.connectApi(searchPath, page, language, stars, forks)
   }
 
   render () {
-    const { usersData, repData } = this.props.data
+    const { usersData, repData, loading, preLoadingSearch } = this.props.data
     const lastPage =
       Math.ceil(this.props.data.repData.total_count / 5) > 200
         ? 200
@@ -116,15 +122,23 @@ export class SearchList extends Component {
     return (
       <div className='search-list-wrapper'>
         {!usersData && !repData ? (
-          <div className='welcome'>hello, whom are you search</div>
+          <div className='welcome'>
+            {!preLoadingSearch ? 'welkome' : 'searching...'}
+          </div>
         ) : (
           <React.Fragment>
-            {this.body()}
-            <Paginations
-              onClick={this.handlePageChange}
-              page={this.props.data.page}
-              lastPage={lastPage}
-            />
+            {!loading ? (
+              <React.Fragment>
+                {this.body()}
+                <Paginations
+                  onClick={this.handlePageChange}
+                  page={this.props.data.page}
+                  lastPage={lastPage}
+                />
+              </React.Fragment>
+            ) : (
+              <div>loading...</div>
+            )}
           </React.Fragment>
         )}
       </div>

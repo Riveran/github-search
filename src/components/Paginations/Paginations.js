@@ -39,7 +39,6 @@ const renderPaginationBtns = (onClick, page, lastPage) => {
 
 const Paginations = ({ onClick, page, lastPage }) => (
   <div className='paginationWrapper'>
-    {console.log('page', page)}
     {page !== 0 && (
       <button onClick={onClick} data-name='prev'>
         {'<<'}

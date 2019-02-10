@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 export class Input extends Component {
   static propTypes = {
-    connectApi: PropTypes.func.isRequired
+    getFullResult: PropTypes.func.isRequired
   }
 
   state = {
@@ -20,7 +20,7 @@ export class Input extends Component {
   handleClick = e => {
     e.preventDefault()
     const { searchPath } = this.state
-    this.props.connectApi(searchPath)
+    this.props.getFullResult(searchPath)
   }
 
   render () {

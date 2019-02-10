@@ -13,6 +13,63 @@ export class Category extends Component {
     this.props.setCategory(category)
   }
 
+  state = {
+    stars: 0,
+    forks: 0
+  }
+
+  setLanguageList = () => {
+    const { statistic, searchPath, page } = this.props.data
+    if (!this.props.data.preLoadingSearch) return null
+    const LanguageList = []
+    statistic.items.forEach(el => {
+      const language = el.language
+      if (LanguageList.includes(language)) {
+        return
+      }
+      LanguageList.push(language)
+    })
+
+    const languageListItems = LanguageList.map((el, index) => {
+      if (el === null) {
+        return null
+      } else {
+        return (
+          <div key={index}>
+            <input
+              type='radio'
+              name='language'
+              value={el}
+              onClick={() => {
+                this.props.connectApi(searchPath, page, el)
+              }}
+            />
+            <span className='filterLanguage--item'>{el}</span>
+          </div>
+        )
+      }
+    })
+
+    return languageListItems
+  }
+
+  handleChange = e => {
+    e.preventDefault()
+    const { id } = e.currentTarget
+    this.setState({
+      [id]: e.currentTarget.value
+    })
+  }
+
+  handleClick = e => {
+    e.preventDefault()
+    const { searchPath, page, language } = this.props.data
+    const { stars, forks } = this.state
+    this.props.connectApi(searchPath, page, language, stars, forks)
+  }
+
+  getSort = () => {}
+
   render () {
     return (
       <React.Fragment>
@@ -40,7 +97,31 @@ export class Category extends Component {
           </ul>
           <div className='filtres-wrapper'>
             <form className='set_language'>
-              <input type='radio' name='language' />
+              {this.setLanguageList()}
+              {this.props.data.preLoadingSearch ? (
+                <div className='set_stars-forks'>
+                  Stars:
+                  <input
+                    id='stars'
+                    className='set_filters'
+                    type='text'
+                    placeholder='stars more then'
+                    onChange={this.handleChange}
+                  />
+                  Forks:
+                  <input
+                    id='forks'
+                    className='set_filters'
+                    type='text'
+                    placeholder='forks more then'
+                    onChange={this.handleChange}
+                  />
+                  <button className='set_btn' onClick={this.handleClick}>
+                    {' '}
+                    submit{' '}
+                  </button>
+                </div>
+              ) : null}
             </form>
           </div>
         </div>

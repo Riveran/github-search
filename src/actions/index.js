@@ -4,30 +4,66 @@ import {
   SET_CATEGORY,
   ERROR_FETCH,
   SET_PATH,
-  SET_PAGE
+  SET_PAGE,
+  GET_FULL_RESULT,
+  SET_LOADING,
+  SET_LOADING_SEARCH,
+  SET_LANGUAGE
 } from './../constants/index'
 import axios from 'axios'
 
-const BASE_PATH = 'https://api.github.com'
-const SEARCH_PATH = '/search'
+/* да, тут жесть, прошу понять и простить */
 
-export function connectApi (searchPath, number) {
+export function getFullResult (searchPath) {
+  const number = 1
+  const preLoadingSearch = false
   return async dispatch => {
     dispatch(saveSearchPath(searchPath))
     dispatch({
+      type: SET_LOADING_SEARCH,
+      payload: preLoadingSearch
+    })
+    const resultStat = await axios.get(
+      `https://api.github.com/search/repositories?q=${searchPath}&per_page=100`
+    )
+    dispatch({
+      type: GET_FULL_RESULT,
+      payload: resultStat.data
+    })
+    dispatch(connectApi(searchPath, number))
+    dispatch({
+      type: SET_LOADING_SEARCH,
+      payload: !preLoadingSearch
+    })
+  }
+}
+
+export function connectApi (searchPath, page, language) {
+  console.log('action', language)
+  const loading = true
+  return async dispatch => {
+    dispatch({
       type: SET_PAGE,
-      number
+      page
+    })
+    dispatch({
+      type: SET_LANGUAGE,
+      payload: language
     })
     try {
+      dispatch({
+        type: SET_LOADING,
+        payload: loading
+      })
       const responseRepos = await axios.get(
-        `${BASE_PATH}${SEARCH_PATH}/repositories?q=${searchPath}&per_page=5&page=${number}`
+        `https://api.github.com/search/repositories?q=${searchPath}+language:${language}&per_page=5&page=${page}`
       )
       dispatch(receiveRepos(responseRepos.data))
 
-      /* const responseUsers = await axios.get(
-        `${BASE_PATH}${SEARCH_PATH}/users?q=${searchPath}&per_page=5`
-      )
-      dispatch(receiveUsers(responseUsers.data)) */
+      dispatch({
+        type: SET_LOADING,
+        payload: !loading
+      })
     } catch {
       dispatch({
         type: ERROR_FETCH,
@@ -64,3 +100,8 @@ function receiveUsers (json) {
     json
   }
 }
+
+/* const responseUsers = await axios.get(
+        `${BASE_PATH}${SEARCH_PATH}/users?q=${searchPath}&per_page=5`
+      )
+      dispatch(receiveUsers(responseUsers.data)) */
