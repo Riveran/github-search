@@ -8,7 +8,9 @@ import {
   GET_FULL_RESULT,
   SET_LOADING,
   SET_LOADING_SEARCH,
-  SET_LANGUAGE
+  SET_LANGUAGE,
+  SET_STARS,
+  SET_FORKS
 } from './../constants/index'
 import axios from 'axios'
 
@@ -38,7 +40,7 @@ export function getFullResult (searchPath) {
   }
 }
 
-export function connectApi (searchPath, page, language) {
+export function connectApi (searchPath, page, language, stars, forks) {
   console.log('action', language)
   const loading = true
   return async dispatch => {
@@ -50,13 +52,27 @@ export function connectApi (searchPath, page, language) {
       type: SET_LANGUAGE,
       payload: language
     })
+
+    dispatch({
+      type: SET_STARS,
+      stars
+    })
+
+    dispatch({
+      type: SET_FORKS,
+      forks
+    })
+
     try {
       dispatch({
         type: SET_LOADING,
         payload: loading
       })
       const responseRepos = await axios.get(
-        `https://api.github.com/search/repositories?q=${searchPath}+language:${language}&per_page=5&page=${page}`
+        `https://api.github.com/search/repositories?q=${searchPath}+${
+          language ? 'language:' + language + '+' : ''
+        }${stars ? 'stars:>' + stars + '+' : ''}
+        ${forks ? 'forks:>' + forks + '+' : ''}&per_page=5&page=${page}`
       )
       dispatch(receiveRepos(responseRepos.data))
 

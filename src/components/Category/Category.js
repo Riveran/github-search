@@ -19,7 +19,14 @@ export class Category extends Component {
   }
 
   setLanguageList = () => {
-    const { statistic, searchPath, page } = this.props.data
+    const {
+      statistic,
+      searchPath,
+      page,
+      stars,
+      forks,
+      language
+    } = this.props.data
     if (!this.props.data.preLoadingSearch) return null
     const LanguageList = []
     statistic.items.forEach(el => {
@@ -40,8 +47,9 @@ export class Category extends Component {
               type='radio'
               name='language'
               value={el}
+              checked={language === el}
               onClick={() => {
-                this.props.connectApi(searchPath, page, el)
+                this.props.connectApi(searchPath, page, el, stars, forks)
               }}
             />
             <span className='filterLanguage--item'>{el}</span>
