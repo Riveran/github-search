@@ -5,20 +5,20 @@ import './paginations.css'
 
 const renderPaginationBtns = (onClick, page, lastPage) => {
   const startBtns = [page, page + 1, page + 2]
-  const gapBtns = [page - 2, page - 1, page]
+  const gapBtns = [1, '...', page - 2, page - 1, page, page + 1, page + 2]
   const middleBtn = ['...']
   const lastBtns = [lastPage - 1]
 
   let btnsArr = []
 
-  if (page < lastPage - 6) {
+  if (page < lastPage - 4 && page < 4) {
     btnsArr = [...startBtns, ...middleBtn, ...lastBtns]
   } else if (page < lastPage - 4) {
     btnsArr = [...gapBtns, ...middleBtn, ...lastBtns]
   } else if (page < lastPage - 3) {
     btnsArr = [...gapBtns, ...lastBtns]
   } else {
-    btnsArr = [...middleBtn, ...lastBtns]
+    btnsArr = [...lastBtns]
   }
 
   return btnsArr.map(num => {

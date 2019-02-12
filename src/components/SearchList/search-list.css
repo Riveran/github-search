@@ -8,3 +8,12 @@
 .welcome {
   text-align: center;
 }
+
+.search-list-wrapper_users {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 5px;
+  margin-left: 0px;
+  border: 1px solid gray;
+}

@@ -14,7 +14,7 @@ export class ItemsList extends Component {
     const result = await axios.get(
       `https://api.github.com/users/${this.props.login}`
     )
-    return console.log(result)
+    return console.log(result.data)
   }
 
   render () {
@@ -23,7 +23,7 @@ export class ItemsList extends Component {
     return (
       <div className='item-wrapper'>
         <div className='item-block'>
-          <img src={avatar} width={70} height={70} />
+          <img className='item_img' src={avatar} width={100} height={100} />
           <a href={url}>
             <p>{login}</p>
           </a>

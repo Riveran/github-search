@@ -143,9 +143,17 @@ export class SearchList extends Component {
         ? Math.ceil(this.props.data.repData.total_count / 5) > 200
           ? 200
           : Math.ceil(this.props.data.repData.total_count / 5)
-        : Math.ceil(usersData.total_count / 20)
+        : Math.ceil(usersData.total_count / 20) > 50
+          ? 50
+          : Math.ceil(usersData.total_count / 20)
     return (
-      <div className='search-list-wrapper'>
+      <div
+        className={
+          renderCategory === 'repositories'
+            ? 'search-list-wrapper'
+            : 'search-list-wrapper_users'
+        }
+      >
         {!usersData && !repData ? (
           <div className='welcome'>
             {!preLoadingSearch ? 'searching...' : 'render...'}

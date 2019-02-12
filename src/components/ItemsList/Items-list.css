@@ -1,14 +1,19 @@
 .item-wrapper {
-  height: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 95%;
-  margin-bottom: 3px;
-  margin-top: 5px;
-  border: 1px solid gray;
+  margin: 10px;
+  width: 21%;
 }
 
 .item-block {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn_item {
+  height: 20px;
+}
+
+.item_img {
 }
