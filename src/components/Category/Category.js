@@ -7,15 +7,33 @@ export class Category extends Component {
     data: PropTypes.object.isRequired
   }
 
-  setCategory = e => {
-    e.preventDefault()
-    const category = e.currentTarget.dataset.category
-    this.props.setCategory(category)
-  }
-
   state = {
+    category: 'repositories',
     stars: 0,
     forks: 0
+  }
+
+  setCategory = e => {
+    e.preventDefault()
+    const { searchPath, page, stars, forks, language, sortBy } = this.props.data
+    this.setState(
+      {
+        category: e.currentTarget.dataset.category
+      },
+
+      () => {
+        const { category } = this.state
+        this.props.connectApi(
+          searchPath,
+          page,
+          language,
+          stars,
+          forks,
+          category,
+          sortBy
+        )
+      }
+    )
   }
 
   setLanguageList = () => {
@@ -25,7 +43,8 @@ export class Category extends Component {
       page,
       stars,
       forks,
-      language
+      language,
+      sortBy
     } = this.props.data
     if (!this.props.data.preLoadingSearch) return null
     const LanguageList = []
@@ -49,7 +68,14 @@ export class Category extends Component {
               value={el}
               checked={language === el}
               onClick={() => {
-                this.props.connectApi(searchPath, page, el, stars, forks)
+                this.props.connectApi(
+                  searchPath,
+                  page,
+                  el,
+                  stars,
+                  forks,
+                  sortBy
+                )
               }}
             />
             <span className='filterLanguage--item'>{el}</span>
@@ -71,12 +97,10 @@ export class Category extends Component {
 
   handleClick = e => {
     e.preventDefault()
-    const { searchPath, page, language } = this.props.data
+    const { searchPath, page, language, sortBy } = this.props.data
     const { stars, forks } = this.state
-    this.props.connectApi(searchPath, page, language, stars, forks)
+    this.props.connectApi(searchPath, page, language, stars, forks, sortBy)
   }
-
-  getSort = () => {}
 
   render () {
     return (
@@ -103,35 +127,38 @@ export class Category extends Component {
               </button>
             </li>
           </ul>
-          <div className='filtres-wrapper'>
-            <form className='set_language'>
-              {this.setLanguageList()}
-              {this.props.data.preLoadingSearch ? (
-                <div className='set_stars-forks'>
-                  Stars:
-                  <input
-                    id='stars'
-                    className='set_filters'
-                    type='text'
-                    placeholder='stars more then'
-                    onChange={this.handleChange}
-                  />
-                  Forks:
-                  <input
-                    id='forks'
-                    className='set_filters'
-                    type='text'
-                    placeholder='forks more then'
-                    onChange={this.handleChange}
-                  />
-                  <button className='set_btn' onClick={this.handleClick}>
-                    {' '}
-                    submit{' '}
-                  </button>
-                </div>
-              ) : null}
-            </form>
-          </div>
+
+          {this.state.category === 'users' ? null : (
+            <div className='filtres-wrapper'>
+              <form className='set_language'>
+                {this.setLanguageList()}
+                {this.props.data.preLoadingSearch ? (
+                  <div className='set_stars-forks'>
+                    Stars:
+                    <input
+                      id='stars'
+                      className='set_filters'
+                      type='text'
+                      placeholder='stars more then'
+                      onChange={this.handleChange}
+                    />
+                    Forks:
+                    <input
+                      id='forks'
+                      className='set_filters'
+                      type='text'
+                      placeholder='forks more then'
+                      onChange={this.handleChange}
+                    />
+                    <button className='set_btn' onClick={this.handleClick}>
+                      {' '}
+                      submit{' '}
+                    </button>
+                  </div>
+                ) : null}
+              </form>
+            </div>
+          )}
         </div>
       </React.Fragment>
     )

@@ -1,5 +1,5 @@
 import Category from './../components/Category/Category'
-import { setCategory, connectApi } from '../actions/index'
+import { connectApi } from '../actions/index'
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => ({
@@ -7,9 +7,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCategory: category => dispatch(setCategory(category)),
-  connectApi: (searchPath, page, language, stars, forks) =>
-    dispatch(connectApi(searchPath, page, language, stars, forks))
+  connectApi: (searchPath, page, language, stars, forks, category, sortBy) =>
+    dispatch(
+      connectApi(searchPath, page, language, stars, forks, category, sortBy)
+    )
 })
 
 export default connect(

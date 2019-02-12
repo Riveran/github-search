@@ -4,6 +4,7 @@ import RepositoriesList from './../RepositoriesList/RepositoriesList'
 import PropTypes from 'prop-types'
 import './search-list.css'
 import Paginations from './../Paginations/Paginations'
+import SortFilters from './../SortFilters/SortFilters'
 
 export class SearchList extends Component {
   static propTypes = {
@@ -109,26 +110,54 @@ export class SearchList extends Component {
   }
 
   updatePage = page => {
-    const { searchPath, language, stars, forks } = this.props.data
-    this.props.connectApi(searchPath, page, language, stars, forks)
+    const {
+      searchPath,
+      language,
+      stars,
+      forks,
+      renderCategory,
+      sortBy
+    } = this.props.data
+    console.log(renderCategory)
+    this.props.connectApi(
+      searchPath,
+      page,
+      language,
+      stars,
+      forks,
+      renderCategory,
+      sortBy
+    )
   }
 
   render () {
-    const { usersData, repData, loading, preLoadingSearch } = this.props.data
+    const {
+      usersData,
+      repData,
+      loading,
+      preLoadingSearch,
+      renderCategory
+    } = this.props.data
     const lastPage =
-      Math.ceil(this.props.data.repData.total_count / 5) > 200
-        ? 200
-        : Math.ceil(this.props.data.repData.total_count / 5)
+      renderCategory === 'repositories'
+        ? Math.ceil(this.props.data.repData.total_count / 5) > 200
+          ? 200
+          : Math.ceil(this.props.data.repData.total_count / 5)
+        : Math.ceil(usersData.total_count / 20)
     return (
       <div className='search-list-wrapper'>
         {!usersData && !repData ? (
           <div className='welcome'>
-            {!preLoadingSearch ? 'welkome' : 'searching...'}
+            {!preLoadingSearch ? 'searching...' : 'render...'}
           </div>
         ) : (
           <React.Fragment>
             {!loading ? (
               <React.Fragment>
+                <SortFilters
+                  data={this.props.data}
+                  connectApi={this.props.connectApi}
+                />
                 {this.body()}
                 <Paginations
                   onClick={this.handlePageChange}

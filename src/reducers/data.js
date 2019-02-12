@@ -10,7 +10,8 @@ import {
   SET_LOADING_SEARCH,
   SET_LANGUAGE,
   SET_STARS,
-  SET_FORKS
+  SET_FORKS,
+  SET_SORT
 } from './../constants/index'
 
 const initialState = {
@@ -25,7 +26,8 @@ const initialState = {
   stars: 0,
   forks: 0,
   loading: false,
-  preLoadingSearch: false
+  preLoadingSearch: false,
+  sortBy: ''
 }
 
 export default (state = initialState, action) => {
@@ -65,6 +67,8 @@ export default (state = initialState, action) => {
 
     case SET_FORKS:
       return { ...state, forks: action.forks }
+    case SET_SORT:
+      return { ...state, sortBy: action.payload }
 
     default:
       return state

@@ -10,7 +10,8 @@ import {
   SET_LOADING_SEARCH,
   SET_LANGUAGE,
   SET_STARS,
-  SET_FORKS
+  SET_FORKS,
+  SET_SORT
 } from './../constants/index'
 import axios from 'axios'
 
@@ -40,14 +41,23 @@ export function getFullResult (searchPath) {
   }
 }
 
-export function connectApi (searchPath, page, language, stars, forks) {
-  console.log('action', language)
+export function connectApi (
+  searchPath,
+  page,
+  language,
+  stars,
+  forks,
+  category,
+  sortBy
+) {
   const loading = true
+  let categoryS = category || 'repositories'
   return async dispatch => {
     dispatch({
       type: SET_PAGE,
       page
     })
+
     dispatch({
       type: SET_LANGUAGE,
       payload: language
@@ -63,18 +73,37 @@ export function connectApi (searchPath, page, language, stars, forks) {
       forks
     })
 
+    dispatch({
+      type: SET_SORT,
+      payload: sortBy
+    })
+
     try {
       dispatch({
         type: SET_LOADING,
         payload: loading
       })
+
       const responseRepos = await axios.get(
-        `https://api.github.com/search/repositories?q=${searchPath}+${
-          language ? 'language:' + language + '+' : ''
-        }${stars ? 'stars:>' + stars + '+' : ''}
-        ${forks ? 'forks:>' + forks + '+' : ''}&per_page=5&page=${page}`
+        categoryS === 'repositories' || false
+          ? `https://api.github.com/search/repositories?q=${searchPath}+${
+            language ? 'language:' + language + '+' : ''
+          }${stars ? 'stars:>' + stars + '+' : ''}
+      ${
+  forks ? 'forks:>' + forks + '+' : ''
+}&per_page=5&page=${page}&sort=${sortBy}`
+          : `https://api.github.com/search/users?q=${searchPath}&per_page=20&page=${page}`
       )
-      dispatch(receiveRepos(responseRepos.data))
+      if (categoryS === 'repositories' || false) {
+        dispatch(receiveRepos(responseRepos.data))
+      } else {
+        console.log(
+          `https://api.github.com/search/users?q=${searchPath}&per_page=20&page=${page}`
+        )
+        dispatch(receiveUsers(responseRepos.data))
+      }
+
+      dispatch(setCategory(categoryS))
 
       dispatch({
         type: SET_LOADING,
