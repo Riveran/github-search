@@ -107,7 +107,7 @@ export class Category extends Component {
       <React.Fragment>
         <div className='category-wrapper'>
           <ul className='nav-category'>
-            {/* <span className='nav_title'>Category</span> */}
+            {/* <span className='nav_title'><h3>Category</h3></span> */}
             <li className='nav_item'>
               <button
                 data-category='repositories'
