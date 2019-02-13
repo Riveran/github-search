@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './input.css'
 import PropTypes from 'prop-types'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 export class Input extends Component {
   static propTypes = {
@@ -8,12 +9,31 @@ export class Input extends Component {
   }
 
   state = {
-    searchPath: ''
+    searchPath: '',
+    error: false,
+    newClas: ''
   }
 
-  handleChange = e => {
+  handleError = () => {
     this.setState({
-      searchPath: e.currentTarget.value
+      error: true
+    })
+  }
+
+  handleChange = ({ currentTarget }) => {
+    const reg = /[№;%:?*()=!@ а-яА-ЯёЁ_-]/g
+    const value =
+      currentTarget.value.search(reg) != -1
+        ? ((currentTarget.value = currentTarget.value.replace(reg, '')),
+        this.handleError())
+        : currentTarget.value
+    if (value) {
+      this.setState({
+        error: false
+      })
+    }
+    this.setState({
+      searchPath: value
     })
   }
 
@@ -26,15 +46,28 @@ export class Input extends Component {
   render () {
     return (
       <form className='input-wrapper'>
-        <input
-          className='input-search'
-          placeholder='search repository or users'
-          onChange={this.handleChange}
-        />
+        <div>
+          <input
+            className='input-search'
+            placeholder='search repository or users'
+            onChange={this.handleChange}
+          />
 
-        <button className='input-btn' onClick={this.handleClick}>
-          Search
-        </button>
+          <button
+            className='input-btn'
+            onClick={this.handleClick}
+            disabled={!this.state.searchPath}
+          >
+            Search
+          </button>
+        </div>
+        <TransitionGroup>
+          {this.state.error ? (
+            <CSSTransition classNames='option'>
+              <span className='input-error'>sorry, only latin symbol</span>
+            </CSSTransition>
+          ) : null}
+        </TransitionGroup>
       </form>
     )
   }

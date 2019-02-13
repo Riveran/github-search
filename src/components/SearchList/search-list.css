@@ -2,7 +2,7 @@
   width: 80%;
   margin: 5px;
   margin-left: 0px;
-  border: 1px solid gray;
+  border-radius: 3px;
 }
 
 .welcome {
@@ -15,5 +15,4 @@
   width: 80%;
   margin: 5px;
   margin-left: 0px;
-  border: 1px solid gray;
 }

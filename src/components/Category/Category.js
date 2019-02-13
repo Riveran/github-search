@@ -91,7 +91,7 @@ export class Category extends Component {
     e.preventDefault()
     const { id } = e.currentTarget
     this.setState({
-      [id]: e.currentTarget.value
+      [id]: e.currentTarget.value.replace(/[^\d,]/g, '')
     })
   }
 
@@ -107,50 +107,68 @@ export class Category extends Component {
       <React.Fragment>
         <div className='category-wrapper'>
           <ul className='nav-category'>
-            Category
+            {/* <span className='nav_title'>Category</span> */}
             <li className='nav_item'>
               <button
                 data-category='repositories'
-                className='btn'
+                className={
+                  this.state.category === 'repositories'
+                    ? 'nav_btn-active'
+                    : 'nav_btn'
+                }
                 onClick={this.setCategory}
+                disabled={!this.props.data.preLoadingSearch}
               >
-                Repositories {this.props.data.repData.total_count}
+                <span className='nav_text'>
+                  Repositories {this.props.data.repData.total_count}
+                </span>
               </button>
             </li>
             <li className='nav_item'>
               <button
                 data-category='users'
-                className='btn'
+                className={
+                  this.state.category === 'users' ? 'nav_btn-active' : 'nav_btn'
+                }
                 onClick={this.setCategory}
+                disabled={!this.props.data.preLoadingSearch}
               >
-                Users {this.props.data.usersData.total_count}
+                <span className='nav_text'>
+                  Users {this.props.data.usersData.total_count}
+                </span>
               </button>
             </li>
           </ul>
-
           {this.state.category === 'users' ? null : (
             <div className='filtres-wrapper'>
               <form className='set_language'>
+                <hr className='fl' />
                 {this.setLanguageList()}
+                <hr className='fl' />
                 {this.props.data.preLoadingSearch ? (
                   <div className='set_stars-forks'>
-                    Stars:
+                    <span className='set_st'>Stars:</span>
                     <input
                       id='stars'
                       className='set_filters'
                       type='text'
-                      placeholder='stars more then'
+                      placeholder='more then'
                       onChange={this.handleChange}
                     />
-                    Forks:
+                    <span className='set_fr'>Forks:</span>
+
                     <input
                       id='forks'
                       className='set_filters'
                       type='text'
-                      placeholder='forks more then'
+                      placeholder='more then'
                       onChange={this.handleChange}
                     />
-                    <button className='set_btn' onClick={this.handleClick}>
+                    <button
+                      className='set_btn'
+                      onClick={this.handleClick}
+                      disabled={!(this.state.forks || this.state.stars)}
+                    >
                       {' '}
                       submit{' '}
                     </button>

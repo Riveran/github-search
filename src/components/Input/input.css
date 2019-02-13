@@ -2,18 +2,50 @@
   width: 600px;
   height: 25px;
   font-size: 17px;
-  border: 1px solid gray;
-  border-radius: 3px;
+  border: 0.5px solid #aab8c2;
+  border-radius: 5px;
   padding-left: 25px;
 }
 
 .input-wrapper {
   display: flex;
+  flex-direction: column;
   margin-left: auto;
   margin-right: auto;
 }
 
 .input-btn {
-  height: 30px;
+  height: 27px;
   font-size: 17px;
+  border: none;
+  border-radius: 3px;
+  background: #4a76a8;
+  color: white;
+}
+
+.input-btn:hover {
+  background: #3d6898;
+}
+
+.input-btn:disabled {
+  background: #d9dbe0;
+}
+
+.input-error {
+  color: red;
+  margin-left: 25px;
+}
+.option-enter {
+  opacity: 0;
+}
+.option-enter.option-enter-active {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+.option-exit {
+  opacity: 1;
+}
+.option-exit.option-exit-active {
+  opacity: 0;
+  transition: opacity 1s ease;
 }

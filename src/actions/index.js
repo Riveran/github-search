@@ -53,31 +53,7 @@ export function connectApi (
   const loading = true
   let categoryS = category || 'repositories'
   return async dispatch => {
-    dispatch({
-      type: SET_PAGE,
-      page
-    })
-
-    dispatch({
-      type: SET_LANGUAGE,
-      payload: language
-    })
-
-    dispatch({
-      type: SET_STARS,
-      stars
-    })
-
-    dispatch({
-      type: SET_FORKS,
-      forks
-    })
-
-    dispatch({
-      type: SET_SORT,
-      payload: sortBy
-    })
-
+    dispatch(combineActions(page, language, stars, forks, sortBy))
     try {
       dispatch({
         type: SET_LOADING,
@@ -125,6 +101,35 @@ export function setCategory (category) {
   }
 }
 
+function combineActions (page, language, stars, forks, sortBy) {
+  return dispatch => {
+    dispatch({
+      type: SET_PAGE,
+      page
+    })
+
+    dispatch({
+      type: SET_LANGUAGE,
+      payload: language
+    })
+
+    dispatch({
+      type: SET_STARS,
+      stars
+    })
+
+    dispatch({
+      type: SET_FORKS,
+      forks
+    })
+
+    dispatch({
+      type: SET_SORT,
+      payload: sortBy
+    })
+  }
+}
+
 function saveSearchPath (searchPath) {
   return {
     type: SET_PATH,
@@ -145,8 +150,3 @@ function receiveUsers (json) {
     json
   }
 }
-
-/* const responseUsers = await axios.get(
-        `${BASE_PATH}${SEARCH_PATH}/users?q=${searchPath}&per_page=5`
-      )
-      dispatch(receiveUsers(responseUsers.data)) */

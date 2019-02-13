@@ -3,6 +3,7 @@
 Инструменты
 React
 Redux
+React Transition Group
 
 Установка и запуск
 npm i

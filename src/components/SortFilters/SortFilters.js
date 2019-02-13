@@ -43,7 +43,7 @@ export default class SortFilters extends Component {
         >
           Name
         </span>
-        <span
+        <a
           className='sort_items'
           onClick={() => {
             this.props.connectApi(
@@ -58,7 +58,7 @@ export default class SortFilters extends Component {
           }}
         >
           Stars
-        </span>
+        </a>
         <span
           className='sort_items'
           onClick={() => {

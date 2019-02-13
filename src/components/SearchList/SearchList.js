@@ -28,7 +28,13 @@ export class SearchList extends Component {
   }
 
   body = () => {
-    const { usersData, repData, renderCategory, errorMsg } = this.props.data
+    const {
+      usersData,
+      repData,
+      renderCategory,
+      errorMsg,
+      searchPath
+    } = this.props.data
 
     if (errorMsg) {
       return <div className='welcome_error'>{errorMsg}</div>
@@ -36,6 +42,13 @@ export class SearchList extends Component {
 
     switch (renderCategory) {
       case 'repositories':
+        if (repData.items.length === 0) {
+          return (
+            <div className='welcome'>
+              <h2>sorry, repositories {searchPath} not found </h2>
+            </div>
+          )
+        }
         const renderRepositories = repData.items.map(
           ({
             name,
@@ -69,6 +82,13 @@ export class SearchList extends Component {
         return renderRepositories
 
       case 'users':
+        if (usersData.items.length === 0) {
+          return (
+            <div className='welcome'>
+              <h2>sorry, user {searchPath} not found </h2>
+            </div>
+          )
+        }
         const renderUsers = usersData.items.map(
           ({ avatar_url, login, html_url, id }) => {
             return (
@@ -174,7 +194,9 @@ export class SearchList extends Component {
                 />
               </React.Fragment>
             ) : (
-              <div>loading...</div>
+              <div className='welcome'>
+                <h2>loading...</h2>
+              </div>
             )}
           </React.Fragment>
         )}

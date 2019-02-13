@@ -9,6 +9,9 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: white;
 }
 
 .btn_item {
