@@ -2,7 +2,9 @@ import Input from '../components/Input/Input'
 import { getFullResult } from '../actions/index'
 import { connect } from 'react-redux'
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  data: state.data
+})
 
 const mapDispatchToProps = dispatch => ({
   getFullResult: searchPath => dispatch(getFullResult(searchPath))

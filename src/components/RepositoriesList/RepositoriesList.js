@@ -57,7 +57,7 @@ export class RepositoriesList extends Component {
             <p>{name}</p>
           </a>
           <p className='repositories_lang'>
-            <li>{language || 'language undefine'}</li>
+            <li>{language || 'text'}</li>
           </p>
           <div className='repositories_date'>
             <p>last update: {moment(update).format('MMM Do YYYY')}</p>

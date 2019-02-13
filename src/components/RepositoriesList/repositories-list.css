@@ -1,5 +1,6 @@
 .repositories-wrapper {
   background: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   margin: 5px;
   margin-bottom: 10px;
   padding: 5px;

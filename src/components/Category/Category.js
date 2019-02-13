@@ -152,7 +152,7 @@ export class Category extends Component {
                       id='stars'
                       className='set_filters'
                       type='text'
-                      placeholder='more then'
+                      placeholder='more than'
                       onChange={this.handleChange}
                     />
                     <span className='set_fr'>Forks:</span>
@@ -161,7 +161,7 @@ export class Category extends Component {
                       id='forks'
                       className='set_filters'
                       type='text'
-                      placeholder='more then'
+                      placeholder='more than'
                       onChange={this.handleChange}
                     />
                     <button

@@ -156,7 +156,8 @@ export class SearchList extends Component {
       repData,
       loading,
       preLoadingSearch,
-      renderCategory
+      renderCategory,
+      page
     } = this.props.data
     const lastPage =
       renderCategory === 'repositories'
@@ -187,11 +188,16 @@ export class SearchList extends Component {
                   connectApi={this.props.connectApi}
                 />
                 {this.body()}
-                <Paginations
-                  onClick={this.handlePageChange}
-                  page={this.props.data.page}
-                  lastPage={lastPage}
-                />
+                {(repData.total_count <= 5 &&
+                  renderCategory === 'repositories') ||
+                (usersData.total_count <= 20 &&
+                  renderCategory === 'users') ? null : (
+                    <Paginations
+                      onClick={this.handlePageChange}
+                      page={this.props.data.page}
+                      lastPage={lastPage}
+                    />
+                  )}
               </React.Fragment>
             ) : (
               <div className='welcome'>
