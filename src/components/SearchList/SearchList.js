@@ -27,6 +27,21 @@ export class SearchList extends Component {
     language: ''
   }
 
+  state = {
+    rateLimit: false
+  }
+
+  componentDidMount = () => {
+    setInterval(() => {
+      const { errorMsg } = this.props.data
+      if (errorMsg) {
+        this.setState({
+          rateLimit: true
+        })
+      }
+    }, 5000)
+  }
+
   body = () => {
     const {
       usersData,
@@ -138,7 +153,6 @@ export class SearchList extends Component {
       renderCategory,
       sortBy
     } = this.props.data
-    console.log(renderCategory)
     this.props.connectApi(
       searchPath,
       page,
@@ -156,17 +170,23 @@ export class SearchList extends Component {
       repData,
       loading,
       preLoadingSearch,
-      renderCategory,
-      page
+      renderCategory
     } = this.props.data
     const lastPage =
       renderCategory === 'repositories'
-        ? Math.ceil(this.props.data.repData.total_count / 5) > 200
+        ? Math.ceil(repData.total_count / 5) > 200
           ? 200
-          : Math.ceil(this.props.data.repData.total_count / 5)
+          : Math.ceil(repData.total_count / 5)
         : Math.ceil(usersData.total_count / 20) > 50
           ? 50
           : Math.ceil(usersData.total_count / 20)
+    if (this.state.rateLimit) {
+      return (
+        <div className='welcome'>
+          Извините, вы превысили лимит допустимых запросов
+        </div>
+      )
+    }
     return (
       <div
         className={

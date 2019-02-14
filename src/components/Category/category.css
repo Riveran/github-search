@@ -82,12 +82,14 @@
 
 .set_btn {
   height: 20px;
+  width: 70px;
   border: none;
   border-radius: 3px;
   background: #4a76a8;
   color: white;
   outline: none;
-  margin-left: 32%;
+  margin-left: 29%;
+  margin-top: 5px;
   margin-bottom: 10px;
 }
 
@@ -97,4 +99,15 @@
 
 .set_btn:disabled {
   background: #d9dbe0;
+}
+
+.set_stars-forks {
+  display: flex;
+  flex-direction: column;
+}
+
+.set_item-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 5px;
 }

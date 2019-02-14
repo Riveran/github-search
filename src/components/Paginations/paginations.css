@@ -6,6 +6,7 @@
   background-color: #fff;
   font-weight: 700;
   margin-left: 140px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .paginationWrapper button {

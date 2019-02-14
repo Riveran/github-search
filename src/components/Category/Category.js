@@ -147,23 +147,29 @@ export class Category extends Component {
                 <hr className='fl' />
                 {this.props.data.preLoadingSearch ? (
                   <div className='set_stars-forks'>
-                    <span className='set_st'>Stars:</span>
-                    <input
-                      id='stars'
-                      className='set_filters'
-                      type='text'
-                      placeholder='more than'
-                      onChange={this.handleChange}
-                    />
-                    <span className='set_fr'>Forks:</span>
+                    <div className='set_item-wrapper'>
+                      <span className='set_st'>Stars:</span>
+                      <input
+                        id='stars'
+                        className='set_filters'
+                        type='text'
+                        placeholder='more than'
+                        onChange={this.handleChange}
+                      />
+                    </div>
 
-                    <input
-                      id='forks'
-                      className='set_filters'
-                      type='text'
-                      placeholder='more than'
-                      onChange={this.handleChange}
-                    />
+                    <div className='set_item-wrapper'>
+                      <span className='set_fr'>Forks:</span>
+
+                      <input
+                        id='forks'
+                        className='set_filters'
+                        type='text'
+                        placeholder='more than'
+                        onChange={this.handleChange}
+                      />
+                    </div>
+
                     <button
                       className='set_btn'
                       onClick={this.handleClick}

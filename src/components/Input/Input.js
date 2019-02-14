@@ -44,7 +44,6 @@ export class Input extends Component {
   }
 
   render () {
-    console.log(this.props.data.loading)
     return (
       <form className='input-wrapper'>
         <div>
