@@ -1,10 +1,18 @@
-Небольшой проект по поиску репозиториев и пользователей на гитхаб
+<a href="https://morning-lowlands-68943.herokuapp.com/">Ссылка на heroku</a>
+Небольшой проект по поиску репозиториев и пользователей на github
 
-Инструменты
-React
-Redux
-React Transition Group
+<ul>
+Инструменты 
+    <li>React</li> 
+    <li>Redux</li> 
+    <li>Axios</li>
+    <li>CSS ransition</li>
+</ul>
 
-Установка и запуск
-npm i
-npm start
+
+
+
+
+Установка и запуск <br/>
+npm i <br/>
+npm start <br/>
