@@ -3,7 +3,7 @@
 Ссылка на  <a href="https://morning-lowlands-68943.herokuapp.com/">heroku</a></br>
 
 <ul>
-Инструменты 
+    <h3>Инструменты</h3>
     <li>React</li> 
     <li>Redux</li> 
     <li>Axios</li>
