@@ -10,6 +10,6 @@
     <li>CSS ransition</li>
 </ul>
 
-Установка и запуск <br/>
-npm i <br/>
-npm start <br/>
+<h3>Установка и запуск</h3> 
+<p>npm i</p>
+<p>npm start</p>
