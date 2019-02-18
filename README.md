@@ -1,5 +1,6 @@
-<a href="https://morning-lowlands-68943.herokuapp.com/">Ссылка на heroku</a></br>
 Небольшой проект по поиску репозиториев и пользователей на github
+
+Ссылка на  <a href="https://morning-lowlands-68943.herokuapp.com/">heroku</a></br>
 
 <ul>
 Инструменты 
