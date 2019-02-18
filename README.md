@@ -2,12 +2,12 @@
 
 Ссылка на  <a href="https://morning-lowlands-68943.herokuapp.com/">heroku</a></br>
 
-<ul>
 <h3>Инструменты</h3>
+<ul>
     <li>React</li> 
     <li>Redux</li> 
     <li>Axios</li>
-    <li>CSS ransition</li>
+    <li>CSS transition</li>
 </ul>
 
 <h3>Установка и запуск</h3> 
