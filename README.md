@@ -8,11 +8,6 @@
     <li>Axios</li>
     <li>CSS ransition</li>
 </ul>
-=======
-Инструменты<br/>
-React
-Redux
-React Transition Group
 
 Установка и запуск <br/>
 npm i <br/>
